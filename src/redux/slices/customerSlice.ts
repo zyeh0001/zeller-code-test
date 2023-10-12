@@ -39,6 +39,7 @@ export const fetchAllCustomers = createAsyncThunk(
       const response = (await API.graphql(
         graphqlOperation(ListZellerCustomers)
       )) as GraphQLResponse<CustomerData>;
+
       return response.data.listZellerCustomers.items;
     } catch (error: any) {
       throw error;

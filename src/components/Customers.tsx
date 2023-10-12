@@ -1,53 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { API, graphqlOperation } from "aws-amplify";
-import { ListZellerCustomers, ListZellerCustomersByRole } from "../api/queries";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import {
   fetchAllCustomers,
-  fetchCustomerByRole,
+  resetCustomers,
 } from "../redux/slices/customerSlice";
-import { changeRole } from "../redux/slices/authSlice";
+import CustomerCard from "./CustomerCard";
+import { Stack } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import ErrorComponent from "./ErrorComponent";
 
 const Customers: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { customers } = useAppSelector((state) => state.customers);
-  const { role } = useAppSelector((state) => state.auth);
+  const { customers, loading, error } = useAppSelector(
+    (state) => state.customers
+  );
 
   useEffect(() => {
     dispatch(fetchAllCustomers());
+    return () => {
+      dispatch(resetCustomers());
+    };
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchCustomerByRole(role));
-  }, [dispatch, role]);
+  if (error) {
+    return <ErrorComponent error={error} />;
+  }
 
-  return (
+  return !loading ? (
     <div>
-      <input
-        type="radio"
-        name="userType"
-        value="Admin"
-        checked={role === "Admin"}
-        onChange={() => dispatch(changeRole("Admin"))}
-      />{" "}
-      Admin
-      <input
-        type="radio"
-        name="userType"
-        value="Manager"
-        checked={role === "Manager"}
-        onChange={() => dispatch(changeRole("Manager"))}
-      />{" "}
-      Manager
-      <ul>
+      <Stack sx={{ display: "flex", flexWrap: "wrap" }} direction="row">
         {customers.map((customer) => (
-          <li key={customer.id}>
-            {customer.name} ({customer.email})
-          </li>
+          <CustomerCard customer={customer} key={customer.id} />
         ))}
-      </ul>
+      </Stack>
     </div>
+  ) : (
+    <>
+      <CircularProgress />
+    </>
   );
 };
 

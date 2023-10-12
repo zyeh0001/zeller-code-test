@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, Button, Typography, Container } from "@mui/material";
 import { WHITE } from "../styles/colors";
 
-const PageNotFound = () => {
+const PageNotFound: React.FC = () => {
   //   const { selectedTheme } = useSelector((state) => state.settings);
 
   return (

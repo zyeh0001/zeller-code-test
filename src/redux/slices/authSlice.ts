@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Auth } from "../../interfaces";
 
 const initialState: Auth = {
-  role: "ADMIN",
+  role: "",
 };
 
 const authSlice = createSlice({
