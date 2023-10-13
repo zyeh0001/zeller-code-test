@@ -1,0 +1,11 @@
+export const LIGHT_BLACK = "#404040";
+export const LIGHT_BLACK_TRANSPARENT = "rgba(64, 64, 64, 0.2)";
+export const LIGHT_GRAY = "#f5f5f5";
+export const DARK_GRAY = "#212121";
+export const GREY = "#808080";
+export const WHITE = "#FFFFFF";
+export const LIGHT_BLUE = "#e8f2fb";
+export const BLUE = "#0a73cf";
+export const BLUE_TRANSPARENT = "rgba(0, 153, 255, 0.2)";
+export const DARK_BLUE = "#007acc";
+export const DARK_RED = "#cc2900";
