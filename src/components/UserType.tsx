@@ -13,7 +13,7 @@ const UserType: React.FC = () => {
   const role = useAppSelector((state) => state.auth.role);
 
   useEffect(() => {
-    if (!role) return;
+    if (role === "All") return;
     dispatch(fetchCustomerByRole(role));
   }, [dispatch, role]);
 

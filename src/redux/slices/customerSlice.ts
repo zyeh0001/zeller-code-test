@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Customer, CustomerData, GraphQLResponse } from "../../interfaces";
-import { API, graphqlOperation } from "aws-amplify";
+import { graphqlOperation, API } from "aws-amplify";
 import {
   ListZellerCustomers,
   ListZellerCustomersByRole,
@@ -21,29 +21,21 @@ const initialState: Customers = {
 export const fetchCustomerByRole = createAsyncThunk(
   "customer/fetchCustomerByRole",
   async (role: string) => {
-    try {
-      const response = (await API.graphql(
-        graphqlOperation(ListZellerCustomersByRole(role))
-      )) as GraphQLResponse<CustomerData>;
-      return response.data.listZellerCustomers.items;
-    } catch (error: any) {
-      throw error;
-    }
+    const response = (await API.graphql(
+      graphqlOperation(ListZellerCustomersByRole(role))
+    )) as GraphQLResponse<CustomerData>;
+    return response.data.listZellerCustomers.items;
   }
 );
 
 export const fetchAllCustomers = createAsyncThunk(
   "customer/fetchAllCustomers",
   async () => {
-    try {
-      const response = (await API.graphql(
-        graphqlOperation(ListZellerCustomers)
-      )) as GraphQLResponse<CustomerData>;
+    const response = (await API.graphql(
+      graphqlOperation(ListZellerCustomers)
+    )) as GraphQLResponse<CustomerData>;
 
-      return response.data.listZellerCustomers.items;
-    } catch (error: any) {
-      throw error;
-    }
+    return response.data.listZellerCustomers.items;
   }
 );
 
@@ -51,12 +43,12 @@ const customerSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    resetCustomers: (state: Customers) => initialState,
+    resetCustomers: () => initialState,
   },
   extraReducers: (builder) => {
     // fetchCustomerByRole
     builder
-      .addCase(fetchCustomerByRole.pending, (state, _) => {
+      .addCase(fetchCustomerByRole.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchCustomerByRole.fulfilled, (state, action) => {
@@ -70,7 +62,7 @@ const customerSlice = createSlice({
 
     // fetchAllCustomers
     builder
-      .addCase(fetchAllCustomers.pending, (state, _) => {
+      .addCase(fetchAllCustomers.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchAllCustomers.fulfilled, (state, action) => {

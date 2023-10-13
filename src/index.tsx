@@ -5,6 +5,8 @@ import App from "./App";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import { Amplify } from "aws-amplify";
+import { BrowserRouter } from "react-router-dom";
+
 import awsconfig from "./aws-exports";
 
 Amplify.configure(awsconfig);
@@ -14,6 +16,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
 );

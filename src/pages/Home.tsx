@@ -13,15 +13,13 @@ const Home: React.FC = () => {
 
   return (
     <HomeContainer>
-      <Section>
+      <Section data-testid="user-types-section">
         <SectionTitle title={"User Types"} />
         <UserType />
         <CustomDivider />
       </Section>
-      <Section>
-        <SectionTitle
-          title={`${role === "" ? "All" : capitalizeFirstLetter(role)} Users`}
-        />
+      <Section data-testid="role-user-section">
+        <SectionTitle title={`${capitalizeFirstLetter(role)} Users`} />
         <Customers />
         <CustomDivider />
       </Section>

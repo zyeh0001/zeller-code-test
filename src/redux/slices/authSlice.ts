@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Auth } from "../../interfaces";
 
 const initialState: Auth = {
-  role: "",
+  role: "All",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    resetAuth: (state: Auth) => initialState,
+    resetAuth: () => initialState,
 
     changeRole: (state: Auth, action) => {
       state.role = action.payload;

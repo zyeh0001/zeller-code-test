@@ -1,4 +1,4 @@
-export const capitalizeFirstLetter = (text: string) => {
+export const capitalizeFirstLetter = (text = "") => {
   if (text.length === 0) {
     return text; // Return empty string if input is empty
   }

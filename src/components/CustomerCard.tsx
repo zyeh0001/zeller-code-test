@@ -7,6 +7,7 @@ import CustomerAvatar from "./CustomerAvatar";
 import { Customer } from "../interfaces";
 import styled from "@emotion/styled";
 import { GREY, LIGHT_BLACK } from "../styles/colors";
+import { Font } from "../styles/fonts";
 import { capitalizeFirstLetter } from "../utils/textUtils";
 
 interface CustomerCardProps {
@@ -47,13 +48,13 @@ const CustomerDetail = styled(Box)(() => ({
 }));
 
 const NameTypography = styled(Typography)(() => ({
-  fontSize: "18px",
+  fontSize: Font.large,
   color: LIGHT_BLACK,
   margin: 0,
 }));
 
 const RoleTypography = styled(Typography)(() => ({
-  fontSize: "13px",
+  fontSize: Font.small,
   color: GREY,
   margin: 0,
 }));

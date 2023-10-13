@@ -26,18 +26,16 @@ const Customers: React.FC = () => {
     return <ErrorComponent error={error} />;
   }
 
-  return !loading ? (
-    <div>
-      <Stack sx={{ display: "flex", flexWrap: "wrap" }} direction="row">
-        {customers.map((customer) => (
-          <CustomerCard customer={customer} key={customer.id} />
-        ))}
-      </Stack>
-    </div>
-  ) : (
+  return loading ? (
     <>
       <CircularProgress />
     </>
+  ) : (
+    <Stack sx={{ display: "flex", flexWrap: "wrap" }} direction="row">
+      {customers.map((customer) => (
+        <CustomerCard key={customer.id} customer={customer} />
+      ))}
+    </Stack>
   );
 };
 
