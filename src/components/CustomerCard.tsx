@@ -16,12 +16,12 @@ interface CustomerCardProps {
 
 const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
   return (
-    <CustomCard>
+    <CustomCard data-testid={`CustomerCard-${customer.id}`}>
       <CustomCardContent>
         <CustomerAvatar customer={customer} />
         <CustomerDetail>
           <NameTypography>{customer.name}</NameTypography>
-          <RoleTypography>
+          <RoleTypography data-testid={`CustomerRole`}>
             {capitalizeFirstLetter(customer.role)}
           </RoleTypography>
         </CustomerDetail>
