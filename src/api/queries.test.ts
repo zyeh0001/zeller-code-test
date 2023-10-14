@@ -1,35 +1,12 @@
 import { ListZellerCustomersByRole } from "./queries";
 
 describe("ListZellerCustomersByRole", () => {
-  it("should return the correct GraphQL query by given role", () => {
-    const role = "MANAGER";
-    const expectedQuery = `
-query ListManagerCustomers {
-  listZellerCustomers(filter: { role: { eq: "MANAGER" } }) {
-    items {
-      email
-      id
-      name
-      role
-    }
-  }
-}`;
-    expect(ListZellerCustomersByRole(role)).toBe(expectedQuery.trim());
-  });
-
-  it("should show uppercase the role in the query", () => {
-    const role = "manager";
-    const expectedQuery = `
-query ListManagerCustomers {
-  listZellerCustomers(filter: { role: { eq: "MANAGER" } }) {
-    items {
-      email
-      id
-      name
-      role
-    }
-  }
-}`;
-    expect(ListZellerCustomersByRole(role)).toBe(expectedQuery.trim());
+  it("should have ListZellerCustomersByRole query with role parameter", () => {
+    expect(ListZellerCustomersByRole).toBeDefined();
+    expect(ListZellerCustomersByRole).toContain("query ListManagerCustomers");
+    expect(ListZellerCustomersByRole).toContain("$role: String!");
+    expect(ListZellerCustomersByRole).toContain(
+      "filter: { role: { eq: $role } }"
+    );
   });
 });

@@ -14,16 +14,15 @@ export const ListZellerCustomers = /* GraphQL */ `
   }
 `;
 
-//query to get Customer by Role
-export const ListZellerCustomersByRole = (role: string) => {
-  return `query ListManagerCustomers {
-  listZellerCustomers(filter: { role: { eq: "${role.toUpperCase()}" } }) {
-    items {
-      email
-      id
-      name
-      role
+export const ListZellerCustomersByRole = /* GraphQL */ `
+  query ListManagerCustomers($role: String!) {
+    listZellerCustomers(filter: { role: { eq: $role } }) {
+      items {
+        email
+        id
+        name
+        role
+      }
     }
   }
-}`;
-};
+`;
