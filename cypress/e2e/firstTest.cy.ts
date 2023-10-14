@@ -23,14 +23,11 @@ describe("zeller customer app", () => {
     );
   });
 
-  it("test click manager radio button to show manager users", () => {
-    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint).as(
-      "graphqlCall"
-    );
+  it("test click manager radio button to show Manager Users text", () => {
     //Admin radio clicked
     cy.get('input[type="radio"][value="MANAGER"]').click();
 
-    cy.wait("@graphqlCall");
+    cy.wait(3000);
 
     //have data returned and show
     cy.get('[data-testid^="CustomerCard-"]', { timeout: 10000 }).should(
@@ -40,19 +37,13 @@ describe("zeller customer app", () => {
 
     //change title to be manager users
     cy.contains(/Manager Users/i);
-
-    //only one admin text show which is the radio button
-    cy.get("body").contains("Admin").should("have.length", 1);
   });
 
-  it("test click admin radio button to show manager users", () => {
-    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint).as(
-      "graphqlCall"
-    );
+  it("test click admin radio button to show Admin Users text", () => {
     //Admin radio clicked
     cy.get('input[type="radio"][value="ADMIN"]').click();
 
-    cy.wait("@graphqlCall");
+    cy.wait(3000);
 
     //have data returned and show
     cy.get('[data-testid^="CustomerCard-"]', { timeout: 10000 }).should(
@@ -62,8 +53,39 @@ describe("zeller customer app", () => {
 
     //change title to be manager users
     cy.contains(/Admin Users/i);
+  });
 
-    //only one admin text show which is the radio button
-    cy.get("body").contains("Manager").should("have.length", 1);
+  it("test if customer role match the radio selected role -Admin", () => {
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint).as(
+      "graphqlCall"
+    );
+    //Admin radio clicked
+    cy.get('input[type="radio"][value="ADMIN"]').click();
+
+    cy.wait(3000);
+
+    //check if all the customer role is Admin
+    cy.get('[data-testid="CustomerRole"]').then(($roles) => {
+      $roles.each((index, role) => {
+        expect(role).to.have.text("Admin");
+      });
+    });
+  });
+
+  it("test if customer role match the radio selected role -Manager", () => {
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint).as(
+      "graphqlCall"
+    );
+    //Manager radio clicked
+    cy.get('input[type="radio"][value="MANAGER"]').click();
+
+    cy.wait(3000);
+
+    //check if all the customer role is Manager
+    cy.get('[data-testid="CustomerRole"]').then(($roles) => {
+      $roles.each((index, role) => {
+        expect(role).to.have.text("Manager");
+      });
+    });
   });
 });
