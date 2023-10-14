@@ -14,7 +14,8 @@ This project is a simple React application showcasing the list of Zeller custome
 - Material UI & Styled-Components for styling.
 - Redux Toolkit for state management.
 - AWS Amplify for handling GraphQL queries.
-- React Testing Library & Jest for unit tests.
+- React Testing Library & Jest for unit tests and integration tests.
+- Cypress for end to end testing
 
 ## Getting Started
 
@@ -44,10 +45,16 @@ Run the tests with:
 npm test
 ```
 
-Run the tests coverage:
+Run tests coverage:
 
 ```js
 npm run coverage
+```
+
+Run E2E test using Cypress:
+
+```js
+npm run cypress
 ```
 
 ## Performance Optimizations

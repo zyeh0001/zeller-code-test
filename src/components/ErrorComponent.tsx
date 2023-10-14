@@ -4,9 +4,9 @@ import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 import { DARK_RED } from "../styles/colors";
 
-interface ErrorComponentProps {
+type ErrorComponentProps = {
   error: string;
-}
+};
 
 const ErrorComponent: React.FC<ErrorComponentProps> = ({ error }) => {
   return (
