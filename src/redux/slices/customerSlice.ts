@@ -22,7 +22,7 @@ export const fetchCustomerByRole = createAsyncThunk(
   "customer/fetchCustomerByRole",
   async (role: string) => {
     const response = (await API.graphql(
-      graphqlOperation(ListZellerCustomersByRole(role))
+      graphqlOperation(ListZellerCustomersByRole, { role })
     )) as GraphQLResponse<CustomerData>;
     return response.data.listZellerCustomers.items;
   }
