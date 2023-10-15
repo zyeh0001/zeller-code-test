@@ -1,0 +1,20 @@
+{
+  "data": {
+    "listZellerCustomers": {
+      "items": [
+        {
+          "email": "lynn@gmail.com",
+          "id": "f47813cf-0482-4326-afc9-12f53218ed06",
+          "name": "Lynn Warr",
+          "role": "MANAGER"
+        },
+        {
+          "email": "joe@gmail.com",
+          "id": "edc033b9-ba6c-4857-9ff9-85c52ad39ef9",
+          "name": "Joe Perera",
+          "role": "MANAGER"
+        }
+      ]
+    }
+  }
+}
