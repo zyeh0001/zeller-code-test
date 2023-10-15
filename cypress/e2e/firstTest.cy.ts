@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import awsconfig from "../../src/aws-exports";
 describe("zeller customer app", () => {
   beforeEach(() => {
@@ -15,54 +17,68 @@ describe("zeller customer app", () => {
     cy.get('[data-testid="role-user-section"]').should("exist");
   });
 
-  it("render customers card on screen", () => {
-    //should render more than 1 customer cards
-    cy.get('[data-testid^="CustomerCard-"]', { timeout: 10000 }).should(
-      "have.length.gt",
-      0
-    );
+  it("render all customers card on screen", () => {
+    //mock the graphql api data
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint, {
+      fixture: "allUsers.json",
+    }).as("graphqlCall");
+
+    // Wait for the GraphQL call to complete
+    cy.wait("@graphqlCall");
+
+    // Should render more than 1 customer cards
+    cy.get('[data-testid^="CustomerCard-"]').should("have.length.gt", 0);
   });
 
   it("test click manager radio button to show Manager Users text", () => {
+    //mock the graphql api data
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint, {
+      fixture: "managerUsers.json",
+    }).as("graphqlCall");
+
     //Admin radio clicked
     cy.get('input[type="radio"][value="MANAGER"]').click();
 
-    cy.wait(3000);
+    // Wait for the GraphQL call to complete
+    cy.wait("@graphqlCall");
 
     //have data returned and show
-    cy.get('[data-testid^="CustomerCard-"]', { timeout: 10000 }).should(
-      "have.length.gt",
-      0
-    );
+    cy.get('[data-testid^="CustomerCard-"]').should("have.length.gt", 0);
 
     //change title to be manager users
     cy.contains(/Manager Users/i);
   });
 
   it("test click admin radio button to show Admin Users text", () => {
+    //mock the graphql api data
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint, {
+      fixture: "adminUsers.json",
+    }).as("graphqlCall");
+
     //Admin radio clicked
     cy.get('input[type="radio"][value="ADMIN"]').click();
 
-    cy.wait(3000);
+    // Wait for the GraphQL call to complete
+    cy.wait("@graphqlCall");
 
     //have data returned and show
-    cy.get('[data-testid^="CustomerCard-"]', { timeout: 10000 }).should(
-      "have.length.gt",
-      0
-    );
+    cy.get('[data-testid^="CustomerCard-"]').should("have.length.gt", 0);
 
     //change title to be manager users
     cy.contains(/Admin Users/i);
   });
 
   it("test if customer role match the radio selected role -Admin", () => {
-    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint).as(
-      "graphqlCall"
-    );
+    //mock the graphql api data
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint, {
+      fixture: "adminUsers.json",
+    }).as("graphqlCall");
+
     //Admin radio clicked
     cy.get('input[type="radio"][value="ADMIN"]').click();
 
-    cy.wait(3000);
+    // Wait for the GraphQL call to complete
+    cy.wait("@graphqlCall");
 
     //check if all the customer role is Admin
     cy.get('[data-testid="CustomerRole"]').then(($roles) => {
@@ -73,13 +89,16 @@ describe("zeller customer app", () => {
   });
 
   it("test if customer role match the radio selected role -Manager", () => {
-    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint).as(
-      "graphqlCall"
-    );
+    //mock the graphql api data
+    cy.intercept("POST", awsconfig.aws_appsync_graphqlEndpoint, {
+      fixture: "managerUsers.json",
+    }).as("graphqlCall");
+
     //Manager radio clicked
     cy.get('input[type="radio"][value="MANAGER"]').click();
 
-    cy.wait(3000);
+    // Wait for the GraphQL call to complete
+    cy.wait("@graphqlCall");
 
     //check if all the customer role is Manager
     cy.get('[data-testid="CustomerRole"]').then(($roles) => {
