@@ -1,0 +1,26 @@
+{
+  "data": {
+    "listZellerCustomers": {
+      "items": [
+        {
+          "email": "david@gmail.com",
+          "id": "73bae2af-4fa4-4023-8829-1034604e7590",
+          "name": "David Miller",
+          "role": "ADMIN"
+        },
+        {
+          "email": "ryan@gmail.com",
+          "id": "0c90ecd4-d159-4335-9377-f29ee6829847",
+          "name": "Ryan Muller",
+          "role": "ADMIN"
+        },
+        {
+          "email": "cris@gmail.com",
+          "id": "24d34832-7c10-4c91-a582-32a0222125c0",
+          "name": "Chris Miller",
+          "role": "ADMIN"
+        }
+      ]
+    }
+  }
+}
